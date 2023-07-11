@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="containter mx-4 my-3">
+    <h2> Add a Todo</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="text" class="Todo Title">Todo Title</label>
+            <input type="text" class="form-control" name="title"
+                id="text" aria-describedby="emailHelp">
+            <div id="titleHelp" class="form-text">Enter your todo list
+                title</div>
+        </div>
+        <div class="mb-3">
+            <label for="desc" class="form-label">Description</label>
+            <input type="text" class="form-control" name="desc"
+                id="desc">
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input"
+                id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me
+                out</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<div class="container my-3">
+    <h2> Your Todo</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Sr No</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Date</th>
+                <th scope="col">Delete</th>
+                <th scope="col">Update</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if todo|length == 0 %}
+            <tr>
+                <th>
+                    <div class="alert alert-primary" role="alert">
+                        No todo available !!!
+                    </div>
+                </th>
+            </tr>
+
+            {% else %}
+            {% for item in todo %}
+            <tr>
+                <th scope="row">{{item.sno}}</th>
+                <td>{{item.title}}</td>
+                <td>{{item.desc}}</td>
+                <td>{{item.date_created}}</td>
+                <td><a href="/update/{{item.sno}}" type="button"
+                        class="btn btn-outline-success btn-sm mx-1">Update</button></td>
+                <td><a href="/delete/{{item.sno}}" type="button"
+                        class="btn btn-outline-danger btn-sm mx-1">Delete</button></td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock body %}
